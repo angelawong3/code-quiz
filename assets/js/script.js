@@ -45,6 +45,7 @@ const renderQuestion = () => {
 
 const removeBoxDiv = () => {
   console.log("remove d");
+  boxDiv.remove();
 };
 
 const startButtonClicks = () => {
