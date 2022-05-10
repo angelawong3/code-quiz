@@ -1,0 +1,70 @@
+:root {
+  --purple: #4b0082;
+  --white: #fff;
+}
+
+.body {
+  padding: 10px;
+  margin-left: 20px;
+}
+
+a {
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--purple);
+  padding: 10px;
+}
+
+h1,
+p {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+button {
+  background-color: var(--purple);
+  color: var(--white);
+  position: relative;
+  text-align: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-left: 33%;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#boxDiv {
+  background-image: url(https://www.pixeden.com/images/stories/blog/wallpapers/1212/1280x1024.jpg);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  width: 500px;
+  height: 350px;
+}
+
+#currentTimer {
+  float: right;
+  padding-right: 25px;
+}
+
+#questionsDiv {
+  padding: 20px;
+  margin: 5px;
+}
+
+/* Media queries */
+/* max-width: 786px */
+@media screen and (max-width: 786px) {
+  body {
+    max-width: 786px;
+  }
+}
+
+/* max-width: 640px */
+@media screen and (max-width: 640px) {
+  body {
+    min-width: 640px;
+  }
+}
