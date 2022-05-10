@@ -1,4 +1,14 @@
-// global declarations
+// var currentTimer = document.getElementById("currentTimer");
+
+// target start button
+var startQuiz = document.getElementById("startQuiz");
+// target boxDiv
+var boxDiv = document.getElementById("boxDiv");
+// target main section
+var main = document.getElementById("main");
+// current question index
+let questionIndex = 0;
+
 const questions = [
   {
     question: "Commonly used data types DO NOT include:",
@@ -34,27 +44,35 @@ const questions = [
   },
 ];
 
-// var currentTimer = document.getElementById("currentTimer");
-
-// target start button
-var startQuiz = document.getElementById("startQuiz");
-// target boxDiv
-var boxDiv = document.getElementById("boxDiv");
-// target main section
-var main = document.getElementById("main");
-// target questionDiv
-var questionsDiv = document.getElementById("questionsDiv");
-
 const renderQuestion = () => {
   console.log("render q");
+
+  // get current question
+  const currentQuestion = questions[questionIndex];
+
   // create section
   const section = document.createElement("section");
   section.setAttribute("class", "questionsDiv");
+
   // create h2
   const h2 = document.createElement("h2");
-  h2.textContent = "Hello";
-  // create ul and 4 li
+  h2.textContent = currentQuestion.question;
+
+  // create ul
   const ul = document.createElement("ul");
+
+  // create 4 li
+  const li1 = document.createElement("li");
+  li1.textContent = currentQuestion.choices[0];
+  const li2 = document.createElement("li");
+  li2.textContent = currentQuestion.choices[1];
+  const li3 = document.createElement("li");
+  li3.textContent = currentQuestion.choices[2];
+  const li4 = document.createElement("li");
+  li4.textContent = currentQuestion.choices[3];
+
+  ul.append(li1, li2, li3, li4);
+
   // loop over options
   section.append(h2, ul);
   main.append(section);
