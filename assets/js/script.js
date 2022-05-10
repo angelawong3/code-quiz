@@ -35,12 +35,29 @@ const questions = [
 ];
 
 // var currentTimer = document.getElementById("currentTimer");
-// var questionsDiv = document.getElementById("questionsDiv");
+
+// target start button
 var startQuiz = document.getElementById("startQuiz");
+// target boxDiv
 var boxDiv = document.getElementById("boxDiv");
+// target main section
+var main = document.getElementById("main");
+// target questionDiv
+var questionsDiv = document.getElementById("questionsDiv");
 
 const renderQuestion = () => {
   console.log("render q");
+  // create section
+  const section = document.createElement("section");
+  section.setAttribute("class", "questionsDiv");
+  // create h2
+  const h2 = document.createElement("h2");
+  h2.textContent = "Hello";
+  // create ul and 4 li
+  const ul = document.createElement("ul");
+  // loop over options
+  section.append(h2, ul);
+  main.append(section);
 };
 
 const removeBoxDiv = () => {
