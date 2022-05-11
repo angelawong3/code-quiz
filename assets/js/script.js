@@ -75,10 +75,16 @@ const handleAnswerClick = (event) => {
     } else {
       // remove last question
 
-      // if last question render highscores
+      // if last question render form and highscores
+      renderForm();
       renderHighscores();
     }
   }
+};
+
+// function to render form
+const renderForm = () => {
+  console.log("render form");
 };
 
 // function to render highscores
@@ -164,13 +170,27 @@ function gameOver() {
   main.textContent = "Time's up";
 }
 
+const initialiseLocalStorage = () => {
+  // get score from LS
+  const scoreFromLS = JSON.parse(localStorage.getItem("scoreResults"));
+  if (!scoreFromLS) {
+    localStorage.setItem("scoreResults", JSON.stringify([]));
+  }
+  console.log(scoreFromLS);
+};
+
 const startButtonClicks = () => {
   console.log("start clicked");
 
   // timer appear
   setTime();
+
+  // initialise local storage
+  initialiseLocalStorage();
+
   // remove orgininal boxDiv
   removeBoxDiv();
+
   // render questions
   renderQuestion();
 };
