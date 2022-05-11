@@ -66,6 +66,7 @@ const handleAnswerClick = (event) => {
     const userAnswer = { value };
     console.log(userAnswer);
     // TODO: check the correct answer
+    // TODO: plus score if correct
     // TODO: minus time if the answer is wrong
     // TODO: store score in LS
 
@@ -83,6 +84,7 @@ const handleAnswerClick = (event) => {
       // if last question render form and highscores
       renderForm();
       renderHighscores();
+      window.location.replace("./highscores.html");
     }
   }
 };
