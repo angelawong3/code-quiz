@@ -1,3 +1,4 @@
+//variable declarations
 // target start button
 var startQuiz = document.getElementById("startQuiz");
 // target boxDiv
@@ -10,8 +11,8 @@ var currentTime = document.getElementById("currentTimer");
 let questionIndex = 0;
 // current score
 var score = 0;
-// 10 seconds per question
-var secondsLeft = 51;
+// time for answering questions
+var secondsLeft = 61;
 // Holds interval time
 var holdInterval = 0;
 // Holds penalty time
@@ -63,7 +64,9 @@ const handleAnswerClick = (event) => {
     const value = target.getAttribute("data-value");
     const userChoice = questions[questionIndex].text;
     const userAnswer = { value };
-    // TODO:store score in LS
+    // TODO: check the correct answer
+    // TODO: minus time if the answer is wrong
+    // TODO: store score in LS
 
     // remove question
     removeQuestion();
@@ -141,13 +144,13 @@ const renderQuestion = () => {
 
 // remove box div from page
 const removeBoxDiv = () => {
-  console.log("remove d");
+  console.log("remove div");
   boxDiv.remove();
 };
 
 // remove previous question from page
 const removeQuestion = () => {
-  console.log("remove q");
+  console.log("remove question");
   document.getElementById("question-container").remove();
 };
 
