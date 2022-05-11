@@ -45,7 +45,7 @@ button {
   cursor: pointer;
 }
 
-#main,
+#mainSection,
 #boxDiv {
   background-image: url(https://www.pixeden.com/images/stories/blog/wallpapers/1212/1280x1024.jpg);
   position: absolute;
