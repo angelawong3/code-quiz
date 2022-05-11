@@ -64,6 +64,7 @@ const handleAnswerClick = (event) => {
     const value = target.getAttribute("data-value");
     const userChoice = questions[questionIndex].text;
     const userAnswer = { value };
+    console.log(userAnswer);
     // TODO: check the correct answer
     // TODO: minus time if the answer is wrong
     // TODO: store score in LS
@@ -144,13 +145,11 @@ const renderQuestion = () => {
 
 // remove box div from page
 const removeBoxDiv = () => {
-  console.log("remove div");
   boxDiv.remove();
 };
 
 // remove previous question from page
 const removeQuestion = () => {
-  console.log("remove question");
   document.getElementById("question-container").remove();
 };
 
