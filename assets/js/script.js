@@ -1,5 +1,3 @@
-// var currentTimer = document.getElementById("currentTimer");
-
 // target start button
 var startQuiz = document.getElementById("startQuiz");
 // target boxDiv
@@ -63,10 +61,32 @@ const handleAnswerClick = (event) => {
   if (target.tagName === "LI") {
     // get the option the user clicked on
     const value = target.getAttribute("data-value");
-    console.log(value);
+    const userChoice = questions[questionIndex].text;
+    const userAnswer = { value };
+    console.log(userAnswer);
+
+    removeQuestion();
+    if (questionIndex < questions.length - 1) {
+      // go to the next question
+      questionIndex += 1;
+
+      // render next question
+      renderQuestion();
+    } else {
+      // remove last question
+
+      // if last question render highscores
+      renderHighscores();
+    }
   }
 };
 
+// function to render highscores
+const renderHighscores = () => {
+  console.log("render hs");
+};
+
+// function to render questions
 const renderQuestion = () => {
   console.log("render q");
 
@@ -76,6 +96,7 @@ const renderQuestion = () => {
   // create section
   const section = document.createElement("section");
   section.setAttribute("class", "questionsDiv");
+  section.setAttribute("id", "question-container");
 
   // create h2
   const h2 = document.createElement("h2");
@@ -111,28 +132,36 @@ const renderQuestion = () => {
   section.addEventListener("click", handleAnswerClick);
 };
 
+// remove box div from page
 const removeBoxDiv = () => {
   console.log("remove d");
   boxDiv.remove();
 };
 
+// remove previous question from page
+const removeQuestion = () => {
+  console.log("remove q");
+  document.getElementById("question-container").remove();
+};
+
 function setTime() {
-  // Sets interval in variable
+  // sets interval in variable
   var timerInterval = setInterval(function () {
     secondsLeft--;
     currentTime.textContent = "Time: " + secondsLeft;
 
     if (secondsLeft === 0) {
-      // Stops execution of action at set interval
+      // stops execution of action at set interval
       clearInterval(timerInterval);
-      sendMessage();
+      // call function of create message
+      gameOver();
     }
   }, 1000);
 }
 
 // Function to create time's up message
-function sendMessage() {
-  currentTime.textContent = "Time's up";
+function gameOver() {
+  main.textContent = "Time's up";
 }
 
 const startButtonClicks = () => {
