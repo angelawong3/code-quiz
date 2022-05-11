@@ -63,8 +63,9 @@ const handleAnswerClick = (event) => {
     const value = target.getAttribute("data-value");
     const userChoice = questions[questionIndex].text;
     const userAnswer = { value };
-    console.log(userAnswer);
+    // TODO:store score in LS
 
+    // remove question
     removeQuestion();
     if (questionIndex < questions.length - 1) {
       // go to the next question
