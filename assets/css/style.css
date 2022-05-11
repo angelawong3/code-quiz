@@ -62,6 +62,17 @@ button {
   padding-right: 25px;
 }
 
+.form-input {
+  color: var(--purple);
+  text-align: center;
+}
+
+#form-input-div {
+  height: auto;
+  text-align: center;
+  padding: 20px;
+}
+
 .questionDiv {
   padding: 20px;
   margin: 5px;

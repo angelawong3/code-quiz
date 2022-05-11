@@ -1,21 +1,12 @@
 //variable declarations
-// target start button
 var startQuiz = document.getElementById("startQuiz");
-// target boxDiv
 var boxDiv = document.getElementById("boxDiv");
-// target main section
 var main = document.getElementById("mainSection");
-// taget current timer
 var currentTime = document.getElementById("currentTimer");
-// current question index
 let questionIndex = 0;
-// current score
 var score = 0;
-// time for answering questions
 var secondsLeft = 61;
-// Holds interval time
 var holdInterval = 0;
-// Holds penalty time
 var penalty = 10;
 
 const questions = [
@@ -53,6 +44,7 @@ const questions = [
   },
 ];
 
+// event handler function to handle click events in question section
 const handleAnswerClick = (event) => {
   console.log("clicked");
 
@@ -83,15 +75,68 @@ const handleAnswerClick = (event) => {
 
       // if last question render form and highscores
       renderForm();
+
       renderHighscores();
-      window.location.replace("./highscores.html");
     }
   }
 };
 
+const handleFormSubmit = (event) => {
+  event.preventDefault();
+
+  const yourInitial = document.getElementById("yourInitial").value;
+  if (yourInitial) {
+    const scoreResults = JSON.parse(localStorage.getItem("scoreResults"));
+
+    const result = {
+      yourInitial,
+      scoreResults,
+    };
+  }
+
+  window.location.replace("./highscores.html");
+
+  // TODO: store initial and score in LS
+};
+
 // function to render form
 const renderForm = () => {
-  console.log("render form");
+  const section = document.createElement("section");
+  section.setAttribute("class", "highScoreSection");
+
+  const h2 = document.createElement("h2");
+  h2.textContent = "Submit Your Score";
+
+  const form = document.createElement("form");
+
+  const inputDiv = document.createElement("div");
+  inputDiv.setAttribute("id", "form-input-div");
+
+  const input = document.createElement("input");
+  input.setAttribute("id", "yourInitial");
+  input.setAttribute("class", "form-input");
+  input.setAttribute("type", "text");
+  input.setAttribute("placeholder", "Enter your initial");
+
+  inputDiv.append(input);
+
+  const buttonDiv = document.createElement("div");
+
+  const button = document.createElement("button");
+  button.setAttribute("type", "submit");
+  button.setAttribute("class", "btn");
+  button.textContent = "Submit your initial";
+
+  buttonDiv.append(button);
+
+  form.append(inputDiv, buttonDiv);
+
+  section.append(h2, form);
+
+  main.append(section);
+
+  // add event listener for form submition
+  form.addEventListener("submit", handleFormSubmit);
 };
 
 // function to render highscores
@@ -184,6 +229,8 @@ const initialiseLocalStorage = () => {
   console.log(scoreFromLS);
 };
 
+// TODO: store score in LS
+
 const startButtonClicks = () => {
   console.log("start clicked");
 
@@ -200,7 +247,8 @@ const startButtonClicks = () => {
   renderQuestion();
 };
 
-// add event listeners
-// add document on load event listener
+// TODO: add event listeners
+// TODO: add document on load event listener
+
 // add start button click event listener
 startQuiz.addEventListener("click", startButtonClicks);
