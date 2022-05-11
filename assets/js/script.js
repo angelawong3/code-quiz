@@ -7,7 +7,7 @@ let questionIndex = 0;
 var score = 0;
 var secondsLeft = 61;
 var holdInterval = 0;
-var penalty = 10;
+var penalty = 5;
 
 const questions = [
   {

@@ -68,7 +68,6 @@ button {
 }
 
 #form-input-div {
-  height: auto;
   text-align: center;
   padding: 20px;
 }
@@ -85,11 +84,19 @@ button {
     max-width: 786px;
     margin: 0%;
   }
+  #mainSection,
+  #boxDiv {
+    display: flex;
+  }
 }
 
 /* max-width: 640px */
 @media screen and (max-width: 640px) {
   body {
     min-width: 640px;
+  }
+  #mainSection,
+  #boxDiv {
+    display: flex;
   }
 }
