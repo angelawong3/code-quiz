@@ -6,8 +6,18 @@ var startQuiz = document.getElementById("startQuiz");
 var boxDiv = document.getElementById("boxDiv");
 // target main section
 var main = document.getElementById("main");
+// taget current timer
+var currentTime = document.getElementById("currentTimer");
 // current question index
 let questionIndex = 0;
+// current score
+var score = 0;
+// 10 seconds per question
+var secondsLeft = 51;
+// Holds interval time
+var holdInterval = 0;
+// Holds penalty time
+var penalty = 10;
 
 const questions = [
   {
@@ -44,6 +54,37 @@ const questions = [
   },
 ];
 
+const handleAnswerClick = (event) => {
+  console.log("clicked");
+
+  const currentTarget = event.currentTarget;
+  const target = event.target;
+
+  if (target.tagName === "LI") {
+    // get the option the user clicked on
+    const value = target.getAttribute("data-value");
+    console.log(value);
+  }
+};
+
+const setTime = () => {
+  currentTime.addEventListener("click", function () {
+    if (holdInterval === 0) {
+      holdInterval = setInterval(function () {
+        secondsLeft--;
+        currentTime.textContent = "Time: " + secondsLeft;
+
+        if (secondsLeft <= 0) {
+          clearInterval(holdInterval);
+          allDone();
+          currentTime.textContent = "Time's up!";
+        }
+      }, 1000);
+    }
+    render(questionIndex);
+  });
+};
+
 const renderQuestion = () => {
   console.log("render q");
 
@@ -63,12 +104,19 @@ const renderQuestion = () => {
 
   // create 4 li
   const li1 = document.createElement("li");
+  li1.setAttribute("data-value", currentQuestion.choices[0]);
   li1.textContent = currentQuestion.choices[0];
+
   const li2 = document.createElement("li");
+  li2.setAttribute("data-value", currentQuestion.choices[1]);
   li2.textContent = currentQuestion.choices[1];
+
   const li3 = document.createElement("li");
+  li3.setAttribute("data-value", currentQuestion.choices[2]);
   li3.textContent = currentQuestion.choices[2];
+
   const li4 = document.createElement("li");
+  li4.setAttribute("data-value", currentQuestion.choices[3]);
   li4.textContent = currentQuestion.choices[3];
 
   ul.append(li1, li2, li3, li4);
@@ -76,6 +124,9 @@ const renderQuestion = () => {
   // loop over options
   section.append(h2, ul);
   main.append(section);
+
+  // add event listener on question section
+  section.addEventListener("click", handleAnswerClick);
 };
 
 const removeBoxDiv = () => {
@@ -90,9 +141,11 @@ const startButtonClicks = () => {
   removeBoxDiv();
   // render questions
   renderQuestion();
+
+  setTime();
 };
 
 // add event listeners
-startQuiz.addEventListener("click", startButtonClicks);
 // add document on load event listener
 // add start button click event listener
+startQuiz.addEventListener("click", startButtonClicks);
