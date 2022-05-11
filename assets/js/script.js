@@ -4,7 +4,7 @@ var startQuiz = document.getElementById("startQuiz");
 // target boxDiv
 var boxDiv = document.getElementById("boxDiv");
 // target main section
-var main = document.getElementById("main");
+var main = document.getElementById("mainSection");
 // taget current timer
 var currentTime = document.getElementById("currentTimer");
 // current question index

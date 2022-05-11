@@ -15,9 +15,21 @@ a {
 }
 
 h1,
+h2,
 p {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
+}
+
+li {
+  list-style-type: none;
+  font-size: 16px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+li:hover {
+  box-shadow: inset 100px 0 0 0 lavender;
+  cursor: pointer;
 }
 
 button {
@@ -33,6 +45,7 @@ button {
   cursor: pointer;
 }
 
+#main,
 #boxDiv {
   background-image: url(https://www.pixeden.com/images/stories/blog/wallpapers/1212/1280x1024.jpg);
   position: absolute;
@@ -49,17 +62,17 @@ button {
   padding-right: 25px;
 }
 
-#questionsDiv {
+.questionDiv {
   padding: 20px;
   margin: 5px;
+  color: var(--purple);
 }
-
 /* Media queries */
 /* max-width: 786px */
 @media screen and (max-width: 786px) {
   body {
     max-width: 786px;
-    margin: 0;
+    margin: 0%;
   }
 }
 
