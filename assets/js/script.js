@@ -67,24 +67,6 @@ const handleAnswerClick = (event) => {
   }
 };
 
-const setTime = () => {
-  currentTime.addEventListener("click", function () {
-    if (holdInterval === 0) {
-      holdInterval = setInterval(function () {
-        secondsLeft--;
-        currentTime.textContent = "Time: " + secondsLeft;
-
-        if (secondsLeft <= 0) {
-          clearInterval(holdInterval);
-          allDone();
-          currentTime.textContent = "Time's up!";
-        }
-      }, 1000);
-    }
-    render(questionIndex);
-  });
-};
-
 const renderQuestion = () => {
   console.log("render q");
 
@@ -134,15 +116,34 @@ const removeBoxDiv = () => {
   boxDiv.remove();
 };
 
+function setTime() {
+  // Sets interval in variable
+  var timerInterval = setInterval(function () {
+    secondsLeft--;
+    currentTime.textContent = "Time: " + secondsLeft;
+
+    if (secondsLeft === 0) {
+      // Stops execution of action at set interval
+      clearInterval(timerInterval);
+      sendMessage();
+    }
+  }, 1000);
+}
+
+// Function to create time's up message
+function sendMessage() {
+  currentTime.textContent = "Time's up";
+}
+
 const startButtonClicks = () => {
   console.log("start clicked");
 
+  // timer appear
+  setTime();
   // remove orgininal boxDiv
   removeBoxDiv();
   // render questions
   renderQuestion();
-
-  setTime();
 };
 
 // add event listeners
