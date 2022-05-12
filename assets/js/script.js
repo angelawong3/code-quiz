@@ -78,33 +78,11 @@ const handleAnswerClick = (event) => {
       // render next question
       renderQuestion();
     } else {
-      // remove last question
-
       // if last question render form and highscores
       renderForm();
-
       renderHighscores();
     }
   }
-};
-
-// form submittion with name and score
-const handleFormSubmit = (event) => {
-  event.preventDefault();
-
-  const yourInitial = document.getElementById("yourInitial").value;
-  if (yourInitial) {
-    const scoreResults = JSON.parse(localStorage.getItem("scoreResults"));
-
-    const result = {
-      yourInitial,
-      scoreResults,
-    };
-  }
-
-  window.location.replace("./highscores.html");
-
-  // TODO: store initial and score in LS
 };
 
 // function to render form
@@ -175,10 +153,10 @@ const renderQuestion = () => {
     currentQuestion.choices[2],
     currentQuestion.choices[3],
   ];
-  // create 4 li
+
+  // for loop to create 4 li
   for (var i = 0; i <= answerList.length; i++) {
     var li = document.createElement("li");
-    li.setAttribute("data-attr", answerList[i]);
     li.setAttribute("class", "answer");
     li.textContent = answerList[i];
     ul.append(li);
@@ -202,6 +180,7 @@ const removeQuestion = () => {
   document.getElementById("question-container").remove();
 };
 
+// set timer
 function setTime() {
   // sets interval in variable
   var timerInterval = setInterval(function () {
@@ -218,13 +197,33 @@ function setTime() {
 }
 
 // Function to create time's up message
-function gameOver() {
+const gameOver = () => {
   main.textContent = "Time's up";
   renderForm();
   renderHighscores();
-}
+};
+
+// TODO: form submittion with name and score
+// TODO: store initial and score in LS
+// TODO: get initial and score from LS
+const handleFormSubmit = (event) => {
+  event.preventDefault();
+
+  const yourInitial = document.getElementById("yourInitial").value;
+  if (yourInitial) {
+    const scoreResults = JSON.parse(localStorage.getItem("scoreResults"));
+
+    const result = {
+      yourInitial,
+      scoreResults,
+    };
+  }
+
+  window.location.replace("./highscores.html");
+};
 
 // TODO: store score in LS
+// TODO: get score from LS
 const setScore = () => {
   localStorage.setItem("highscore", score);
   localStorage.setItem(
@@ -236,11 +235,11 @@ const setScore = () => {
 
 const initialiseLocalStorage = () => {
   // get score from LS
-  const scoreFromLS = JSON.parse(localStorage.getItem("scoreResults"));
-  if (!scoreFromLS) {
-    localStorage.setItem("scoreResults", JSON.stringify([]));
-  }
-  console.log(scoreFromLS);
+  // const scoreFromLS = JSON.parse(localStorage.getItem("scoreResults"));
+  // if (!scoreFromLS) {
+  //   localStorage.setItem("scoreResults", JSON.stringify([]));
+  // }
+  // console.log(scoreFromLS);
 };
 
 const startButtonClicks = () => {
