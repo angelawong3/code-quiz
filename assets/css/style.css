@@ -29,7 +29,7 @@ li {
 }
 
 li:hover {
-  box-shadow: inset 100px 0 0 0 lavender;
+  box-shadow: inset 180px 0 0 0 lavender;
   cursor: pointer;
 }
 
@@ -48,7 +48,7 @@ button {
 
 #mainSection,
 #boxDiv {
-  background-image: url(https://www.pixeden.com/images/stories/blog/wallpapers/1212/1280x1024.jpg);
+  background-image: url(https://images.freeimages.com/images/large-previews/2a7/polly-background-1631651.jpg);
   position: absolute;
   left: 50%;
   top: 50%;

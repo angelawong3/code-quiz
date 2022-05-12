@@ -8,8 +8,8 @@ var score = 0;
 var secondsLeft = 61;
 var holdInterval = 0;
 var penalty = 5;
-var highScore = [];
 
+// questions and answers
 const questions = [
   {
     question: "Commonly used data types DO NOT include:",
@@ -47,45 +47,44 @@ const questions = [
 
 // event handler function to handle click events in question section
 const handleAnswerClick = (event) => {
-  // const currentTarget = event.currentTarget;
-  // const target = event.target;
+  const { target } = event;
 
-  // if (target.tagName === "LI") {
-  //   // get the option the user clicked on
-  //   const value = target.getAttribute("data-value");
-  //   const userChoice = questions[questionIndex].text;
-  //   const userAnswer = { value };
-  //   console.log(userAnswer);
+  // correct answer plus scores
+  const correctAnswer = () => {
+    score += 20;
+  };
 
-  // TODO: check the correct answer
-  const currentQuestion = questions[questionIndex];
-  const target = event.target;
-  if (target == currentQuestion.answer[0]) {
-    // TODO: plus score if correct
-    highScore = score + 20;
-    console.log("Right");
-  } else {
-    // TODO: minus time if the answer is wrong
-    currentTime -= penalty;
-    console.log("Wrong");
-  }
-  // TODO: store score in LS
+  // wrong answer minus seconds
+  const wrongAnswer = () => {
+    secondsLeft -= penalty;
+  };
 
-  // remove question
-  removeQuestion();
-  if (questionIndex < questions.length - 1) {
-    // go to the next question
-    questionIndex += 1;
+  // target equal to li
+  if (target.tagName === "LI") {
+    // remove current question
+    removeQuestion();
+    // if the answer if correct
+    if (questions[questionIndex].answer === target.textContent) {
+      // call the orrect answer funcation
+      correctAnswer();
+    } else {
+      // call the wrong answer function
+      wrongAnswer();
+    }
+    if (questionIndex < questions.length - 1) {
+      // go to the next question
+      questionIndex += 1;
 
-    // render next question
-    renderQuestion();
-  } else {
-    // remove last question
+      // render next question
+      renderQuestion();
+    } else {
+      // remove last question
 
-    // if last question render form and highscores
-    renderForm();
+      // if last question render form and highscores
+      renderForm();
 
-    renderHighscores();
+      renderHighscores();
+    }
   }
 };
 
@@ -113,7 +112,7 @@ const renderForm = () => {
   const section = document.createElement("section");
 
   const h2 = document.createElement("h2");
-  h2.textContent = "Your Score: " + highScore + " /100";
+  h2.textContent = "Your Score: " + score + " /100";
 
   const form = document.createElement("form");
 
@@ -170,24 +169,20 @@ const renderQuestion = () => {
   // create ul
   const ul = document.createElement("ul");
 
+  answerList = [
+    currentQuestion.choices[0],
+    currentQuestion.choices[1],
+    currentQuestion.choices[2],
+    currentQuestion.choices[3],
+  ];
   // create 4 li
-  const li1 = document.createElement("li");
-  li1.setAttribute("data-value", currentQuestion.choices[0]);
-  li1.textContent = currentQuestion.choices[0];
-
-  const li2 = document.createElement("li");
-  li2.setAttribute("data-value", currentQuestion.choices[1]);
-  li2.textContent = currentQuestion.choices[1];
-
-  const li3 = document.createElement("li");
-  li3.setAttribute("data-value", currentQuestion.choices[2]);
-  li3.textContent = currentQuestion.choices[2];
-
-  const li4 = document.createElement("li");
-  li4.setAttribute("data-value", currentQuestion.choices[3]);
-  li4.textContent = currentQuestion.choices[3];
-
-  ul.append(li1, li2, li3, li4);
+  for (var i = 0; i <= answerList.length; i++) {
+    var li = document.createElement("li");
+    li.setAttribute("data-attr", answerList[i]);
+    li.setAttribute("class", "answer");
+    li.textContent = answerList[i];
+    ul.append(li);
+  }
 
   // loop over options
   section.append(h2, ul);
@@ -215,7 +210,7 @@ function setTime() {
 
     if (secondsLeft === 0) {
       // stops execution of action at set interval
-      clearInterval(timerInterval);
+      clearInterval(setInterval);
       // call function of create message
       gameOver();
     }
@@ -229,6 +224,16 @@ function gameOver() {
   renderHighscores();
 }
 
+// TODO: store score in LS
+const setScore = () => {
+  localStorage.setItem("highscore", score);
+  localStorage.setItem(
+    "highScoreName",
+    document.getElementById("highScore").value
+  );
+  initialiseLocalStorage();
+};
+
 const initialiseLocalStorage = () => {
   // get score from LS
   const scoreFromLS = JSON.parse(localStorage.getItem("scoreResults"));
@@ -237,8 +242,6 @@ const initialiseLocalStorage = () => {
   }
   console.log(scoreFromLS);
 };
-
-// TODO: store score in LS
 
 const startButtonClicks = () => {
   console.log("start clicked");
