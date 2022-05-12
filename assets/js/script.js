@@ -8,6 +8,7 @@ var score = 0;
 var secondsLeft = 61;
 var holdInterval = 0;
 var penalty = 5;
+var highScore = [];
 
 const questions = [
   {
@@ -46,41 +47,49 @@ const questions = [
 
 // event handler function to handle click events in question section
 const handleAnswerClick = (event) => {
-  console.log("clicked");
+  // const currentTarget = event.currentTarget;
+  // const target = event.target;
 
-  const currentTarget = event.currentTarget;
+  // if (target.tagName === "LI") {
+  //   // get the option the user clicked on
+  //   const value = target.getAttribute("data-value");
+  //   const userChoice = questions[questionIndex].text;
+  //   const userAnswer = { value };
+  //   console.log(userAnswer);
+
+  // TODO: check the correct answer
+  const currentQuestion = questions[questionIndex];
   const target = event.target;
-
-  if (target.tagName === "LI") {
-    // get the option the user clicked on
-    const value = target.getAttribute("data-value");
-    const userChoice = questions[questionIndex].text;
-    const userAnswer = { value };
-    console.log(userAnswer);
-    // TODO: check the correct answer
+  if (target == currentQuestion.answer[0]) {
     // TODO: plus score if correct
+    highScore = score + 20;
+    console.log("Right");
+  } else {
     // TODO: minus time if the answer is wrong
-    // TODO: store score in LS
+    currentTime -= penalty;
+    console.log("Wrong");
+  }
+  // TODO: store score in LS
 
-    // remove question
-    removeQuestion();
-    if (questionIndex < questions.length - 1) {
-      // go to the next question
-      questionIndex += 1;
+  // remove question
+  removeQuestion();
+  if (questionIndex < questions.length - 1) {
+    // go to the next question
+    questionIndex += 1;
 
-      // render next question
-      renderQuestion();
-    } else {
-      // remove last question
+    // render next question
+    renderQuestion();
+  } else {
+    // remove last question
 
-      // if last question render form and highscores
-      renderForm();
+    // if last question render form and highscores
+    renderForm();
 
-      renderHighscores();
-    }
+    renderHighscores();
   }
 };
 
+// form submittion with name and score
 const handleFormSubmit = (event) => {
   event.preventDefault();
 
@@ -102,10 +111,9 @@ const handleFormSubmit = (event) => {
 // function to render form
 const renderForm = () => {
   const section = document.createElement("section");
-  section.setAttribute("class", "highScoreSection");
 
   const h2 = document.createElement("h2");
-  h2.textContent = "Submit Your Score";
+  h2.textContent = "Your Score: " + highScore + " /100";
 
   const form = document.createElement("form");
 
@@ -141,13 +149,12 @@ const renderForm = () => {
 
 // function to render highscores
 const renderHighscores = () => {
+  // TODO: render HS
   console.log("render hs");
 };
 
 // function to render questions
 const renderQuestion = () => {
-  console.log("render q");
-
   // get current question
   const currentQuestion = questions[questionIndex];
 
@@ -218,6 +225,8 @@ function setTime() {
 // Function to create time's up message
 function gameOver() {
   main.textContent = "Time's up";
+  renderForm();
+  renderHighscores();
 }
 
 const initialiseLocalStorage = () => {

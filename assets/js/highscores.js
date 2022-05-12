@@ -8,18 +8,18 @@ clear.addEventListener("click", function () {
   location.reload();
 });
 
-var allScores = localStorage.getItem("allScores");
-allScores = JSON.parse(allScores);
+const scoreResults = JSON.parse(localStorage.getItem("scoreResults"));
 
-if (allScores !== null) {
-  for (var i = 0; i < allScores.length; i++) {
+if (scoreResults !== null) {
+  for (var i = 0; i < scoreResults.length; i++) {
     var createLi = document.createElement("li");
-    createLi.textContent = allScores[i].initials + " " + allScores[i].score;
+    createLi.textContent =
+      scoreResults[i].initials + " " + scoreResults[i].score;
     highScore.appendChild(createLi);
   }
 }
 
-// add event listener to go to home page
+// add event listener to go back to home page
 goBack.addEventListener("click", function () {
   window.location.replace("./index.html");
 });
