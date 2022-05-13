@@ -99,7 +99,7 @@ button {
   }
 
   #mainSection,
-  #boxDiv {
+  #banner {
     display: flex;
     flex-direction: column;
   }
@@ -118,7 +118,7 @@ button {
     max-width: 640px;
   }
   #mainSection,
-  #boxDiv {
+  #banner {
     display: flex;
     flex-direction: column;
   }
