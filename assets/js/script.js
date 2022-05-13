@@ -203,43 +203,50 @@ const gameOver = () => {
   renderHighscores();
 };
 
+// TODO: store score in LS
+const setScore = () => {
+  localStorage.setItem("highscore", score);
+  // localStorage.setItem(
+  //   "highScoreName",
+  //   document.getElementById("highScore").value
+  // );
+  // initialiseLocalStorage();
+};
+
+// const initialiseLocalStorage = () => {
+//   // get score from LS
+//   const scoreFromLS = JSON.parse(localStorage.getItem("highscore"));
+//   if (!scoreFromLS) {
+//     localStorage.setItem("scoreResults", JSON.stringify([]));
+//   }
+// };
+
 // TODO: form submittion with name and score
 // TODO: store initial and score in LS
 // TODO: get initial and score from LS
 const handleFormSubmit = (event) => {
+  // get value from input
+  // check if empty then render error alert with message and status
+  // if not empty then create the score object
+  // {
+  //   fullName: "Bob Smith",
+  //   score: 25
+  // }
+  // push score object to LS
+  // render quizCompleteSection
   event.preventDefault();
 
   const yourInitial = document.getElementById("yourInitial").value;
   if (yourInitial) {
-    const scoreResults = JSON.parse(localStorage.getItem("scoreResults"));
+    const scoreResults = JSON.parse(localStorage.getItem("highscore"));
 
     const result = {
       yourInitial,
-      scoreResults,
+      score,
     };
   }
-
+  setScore();
   window.location.replace("./highscores.html");
-};
-
-// TODO: store score in LS
-// TODO: get score from LS
-const setScore = () => {
-  localStorage.setItem("highscore", score);
-  localStorage.setItem(
-    "highScoreName",
-    document.getElementById("highScore").value
-  );
-  initialiseLocalStorage();
-};
-
-const initialiseLocalStorage = () => {
-  // get score from LS
-  // const scoreFromLS = JSON.parse(localStorage.getItem("scoreResults"));
-  // if (!scoreFromLS) {
-  //   localStorage.setItem("scoreResults", JSON.stringify([]));
-  // }
-  // console.log(scoreFromLS);
 };
 
 const startButtonClicks = () => {
@@ -248,8 +255,8 @@ const startButtonClicks = () => {
   // timer appear
   setTime();
 
-  // initialise local storage
-  initialiseLocalStorage();
+  // // initialise local storage
+  // initialiseLocalStorage();
 
   // remove orgininal boxDiv
   removeBoxDiv();
