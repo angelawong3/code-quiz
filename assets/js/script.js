@@ -1,12 +1,12 @@
 //variable declarations
 var startQuiz = document.getElementById("startQuiz");
-var boxDiv = document.getElementById("boxDiv");
+var banner = document.getElementById("banner");
 var main = document.getElementById("mainSection");
 var currentTime = document.getElementById("currentTimer");
 var timerInterval;
 let questionIndex = 0;
 var score = 0;
-var secondsLeft = 5;
+var secondsLeft = 61;
 var holdInterval = 0;
 var penalty = 5;
 
@@ -81,7 +81,6 @@ const handleAnswerClick = (event) => {
     } else {
       // if last question render form and highscores
       renderForm();
-      renderHighscores();
     }
   }
 };
@@ -125,12 +124,6 @@ const renderForm = () => {
   button.addEventListener("submit", showScores);
 };
 
-// function to render highscores
-const renderHighscores = () => {
-  // TODO: render HS
-  console.log("render hs");
-};
-
 // function to render questions
 const renderQuestion = () => {
   // get current question
@@ -171,18 +164,24 @@ const renderQuestion = () => {
   section.addEventListener("click", handleAnswerClick);
 };
 
-// remove box div from page
-const removeBoxDiv = () => {
-  boxDiv.remove();
+// remove banner from page
+const removeBanner = () => {
+  banner.remove();
 };
 
 // remove previous question from page
 const removeQuestion = () => {
   document.getElementById("question-container").remove();
+  console.log("remove question");
 };
 
+// remove timer
 const removeTimer = () => {
   document.getElementById("currentTimer").remove();
+};
+
+const removeForm = () => {
+  document.querySelector("form").remove();
 };
 
 const timeRunOut = () => {
@@ -191,8 +190,7 @@ const timeRunOut = () => {
 
   const restartOption = document.createElement("p");
   restartOption.setAttribute("class", "restart-option");
-  restartOption.textContent =
-    "you ran out of time, Click restart code quiz to go back to home page";
+  restartOption.textContent = "Time's UP! You may restart the quiz";
 
   const restartButton = document.createElement("button");
   restartButton.setAttribute("class", "restart-button");
@@ -201,10 +199,11 @@ const timeRunOut = () => {
   restartSection.append(restartOption);
   restartSection.append(restartButton);
   main.append(restartSection);
-  restartButton.addEventListener("click", finishOrRestartQuiz);
+
+  restartButton.addEventListener("click", restartQuiz);
 };
 
-const finishOrRestartQuiz = () => {
+const restartQuiz = () => {
   window.location.reload();
 };
 
@@ -217,9 +216,11 @@ function setTimer() {
     if (secondsLeft <= 0) {
       // stops execution of action at set interval
       clearInterval(setInterval);
-      // call function of create message
+      // remove question
       removeQuestion();
+      // remove timer
       removeTimer();
+      // call time out function
       timeRunOut();
     }
     secondsLeft--;
@@ -231,44 +232,29 @@ function setTimer() {
   }, 1000);
 }
 
-// Function to create time's up message
-const timeOut = () => {
-  // main.textContent = "Time's up";
-  // renderForm();
-  // renderHighscores();
-};
-
 // TODO: store score in LS
-const setScore = () => {
-  localStorage.setItem("highscore", score);
-  // localStorage.setItem(
-  //   "highScoreName",
-  //   document.getElementById("highScore").value
-  // );
-  // initialiseLocalStorage();
+const saveScoreInLS = (yourInitial, score) => {
+  const newScore = {
+    yourInitial,
+    score,
+  };
+  const highScore = localStorage.setItem("highscore", JSON.stringify(newScore));
+  if (highScore && highScore.length) {
+    if (highScore >= 150) {
+      highScore = [];
+      alert("The scores is being reset!");
+    }
+    highScore.push(newScore);
+    highScore.sort((question1, question2) => {
+      return question2.score - question1.score;
+    });
+  } else {
+    highScore = [newScore];
+  }
+  localStorage.setItem("highscore", JSON.stringify(highScore));
 };
 
-// const initialiseLocalStorage = () => {
-//   // get score from LS
-//   const scoreFromLS = JSON.parse(localStorage.getItem("highscore"));
-//   if (!scoreFromLS) {
-//     localStorage.setItem("scoreResults", JSON.stringify([]));
-//   }
-// };
-
-// TODO: form submittion with name and score
-// TODO: store initial and score in LS
-// TODO: get initial and score from LS
 const showScores = (event) => {
-  // get value from input
-  // check if empty then render error alert with message and status
-  // if not empty then create the score object
-  // {
-  //   fullName: "Bob Smith",
-  //   score: 25
-  // }
-  // push score object to LS
-  // render quizCompleteSection
   event.preventDefault();
 
   const yourInitial = document.getElementById("yourInitial").value;
@@ -284,7 +270,7 @@ const showScores = (event) => {
     const notification = document.createElement("h4");
     notification.setAttribute("class", "notification");
     notification.textContent =
-      "you can see the high scores by clicking on the high score link on the top left of this page";
+      'You can view your score by clicking the link "Highscores"';
 
     const finishAndRestartQuizButton = document.createElement("button");
     finishAndRestartQuizButton.setAttribute("class", "finish-quiz-button");
@@ -295,14 +281,10 @@ const showScores = (event) => {
     scoreSection.append(finishAndRestartQuizButton);
     main.append(scoreSection);
 
-    const scoreResults = JSON.parse(localStorage.getItem("highscore"));
-
-    const result = {
-      yourInitial,
-      score,
-    };
+    saveScoreInLS(yourInitial, score);
   }
-  setScore();
+
+  // TODO: after saving the score go to the highscore page
   window.location.replace("./highscores.html");
 };
 
@@ -312,18 +294,12 @@ const startButtonClicks = () => {
   // timer appear
   setTimer();
 
-  // // initialise local storage
-  // initialiseLocalStorage();
-
-  // remove orgininal boxDiv
-  removeBoxDiv();
+  // remove orgininal banner
+  removeBanner();
 
   // render questions
   renderQuestion();
 };
-
-// TODO: add event listeners
-// TODO: add document on load event listener
 
 // add start button click event listener
 startQuiz.addEventListener("click", startButtonClicks);
