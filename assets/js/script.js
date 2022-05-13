@@ -6,7 +6,7 @@ var currentTime = document.getElementById("currentTimer");
 var timerInterval;
 let questionIndex = 0;
 var score = 0;
-var secondsLeft = 61;
+var secondsLeft = 6;
 var holdInterval = 0;
 var penalty = 5;
 
@@ -172,7 +172,6 @@ const removeBanner = () => {
 // remove previous question from page
 const removeQuestion = () => {
   document.getElementById("question-container").remove();
-  console.log("remove question");
 };
 
 // remove timer
@@ -232,9 +231,9 @@ function setTimer() {
   }, 1000);
 }
 
-// const setScore = () => {
-//   const Scores = localStorage.setItem("highscore", score);
-// };
+const setScore = () => {
+  const Scores = localStorage.setItem("highscore", score);
+};
 
 // TODO: store score in LS
 const saveScoreInLS = (yourInitial, score) => {
@@ -242,8 +241,7 @@ const saveScoreInLS = (yourInitial, score) => {
     yourInitial,
     score,
   };
-
-  const highScore = localStorage.setItem("highscore", JSON.stringify([]));
+  const highScore = localStorage.setItem("highscore", JSON.stringify(newScore));
   if (highScore && highScore.length) {
     if (highScore.length >= 150) {
       highScore = [];
@@ -254,7 +252,8 @@ const saveScoreInLS = (yourInitial, score) => {
       return question2.score - question1.score;
     });
   } else {
-    highScore = [newScore];
+    // TODO: debug
+    const highScore = [];
   }
   var highScores = JSON.parse(localStorage.getItem("highscore"));
 };
@@ -264,26 +263,12 @@ const showScores = (event) => {
 
   const yourInitial = document.getElementById("yourInitial").value;
   if (yourInitial) {
+    removeTimer();
     removeForm();
-    const scoreSection = document.createElement("section");
-    scoreSection.setAttribute("class", "score-data");
-
-    const scoreCard = document.createElement("h1");
-    scoreCard.setAttribute("class", "score-card");
-    scoreCard.textContent = `${yourInitial}'s score: ${score}`;
-
-    const finishAndRestartQuizButton = document.createElement("button");
-    finishAndRestartQuizButton.setAttribute("class", "finish-quiz-button");
-    finishAndRestartQuizButton.textContent = "Finish";
-
-    scoreSection.append(scoreCard);
-    scoreSection.append(finishAndRestartQuizButton);
-    main.append(scoreSection);
-
-    saveScoreInLS();
+    saveScoreInLS(yourInitial, score);
   }
 
-  // TODO: after saving the score go to the highscore page
+  // after saving the score go to the highscore page
   window.location.replace("./highscores.html");
 };
 
