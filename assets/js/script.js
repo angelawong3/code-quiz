@@ -121,7 +121,7 @@ const renderForm = () => {
   main.append(section);
 
   // add event listener for form submition
-  button.addEventListener("submit", showScores);
+  button.addEventListener("click", showScores);
 };
 
 // function to render questions
@@ -232,6 +232,10 @@ function setTimer() {
   }, 1000);
 }
 
+// const setScore = () => {
+//   const Scores = localStorage.setItem("highscore", score);
+// };
+
 // TODO: store score in LS
 const saveScoreInLS = (yourInitial, score) => {
   const newScore = {
@@ -240,7 +244,7 @@ const saveScoreInLS = (yourInitial, score) => {
   };
   const highScore = localStorage.setItem("highscore", JSON.stringify(newScore));
   if (highScore && highScore.length) {
-    if (highScore >= 150) {
+    if (highScore.length >= 150) {
       highScore = [];
       alert("The scores is being reset!");
     }
@@ -251,7 +255,7 @@ const saveScoreInLS = (yourInitial, score) => {
   } else {
     highScore = [newScore];
   }
-  localStorage.setItem("highscore", JSON.stringify(highScore));
+  var highScores = JSON.parse(localStorage.getItem("highscore"));
 };
 
 const showScores = (event) => {
@@ -281,7 +285,7 @@ const showScores = (event) => {
     scoreSection.append(finishAndRestartQuizButton);
     main.append(scoreSection);
 
-    saveScoreInLS(yourInitial, score);
+    saveScoreInLS();
   }
 
   // TODO: after saving the score go to the highscore page
