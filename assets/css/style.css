@@ -3,11 +3,6 @@
   --white: #fff;
 }
 
-.body {
-  padding: 10px;
-  margin-left: 20px;
-}
-
 a {
   font-family: Arial, Helvetica, sans-serif;
   color: var(--purple);
@@ -21,11 +16,22 @@ p {
   text-align: center;
 }
 
-#scoreLi {
-  padding: 10px;
-  list-style-type: none;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+button {
+  background-color: var(--purple);
+  color: var(--white);
+  position: relative;
   text-align: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-left: 33%;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.body {
+  padding: 10px;
+  margin-left: 20px;
 }
 
 .answer {
@@ -40,17 +46,22 @@ p {
   cursor: pointer;
 }
 
-button {
-  background-color: var(--purple);
-  color: var(--white);
-  position: relative;
+.form-input {
+  color: var(--purple);
   text-align: center;
+}
+
+.questionDiv {
+  padding: 20px;
+  margin: 5px;
+  color: var(--purple);
+}
+
+#scoreLi {
+  padding: 10px;
+  list-style-type: none;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  margin-left: 33%;
-  padding: 15px;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
+  text-align: center;
 }
 
 #mainSection,
@@ -70,24 +81,9 @@ button {
   padding-right: 25px;
 }
 
-.form-input {
-  color: var(--purple);
-  text-align: center;
-}
-
 #form-input-div {
   text-align: center;
   padding: 20px;
-}
-
-.questionDiv {
-  padding: 20px;
-  margin: 5px;
-  color: var(--purple);
-}
-
-.notification {
-  text-align: center;
 }
 
 /* Media queries */
@@ -100,9 +96,11 @@ button {
 
   #mainSection,
   #banner {
+    max-width: fit-content;
     display: flex;
     flex-direction: column;
   }
+
   button {
     max-width: fit-content;
   }
@@ -114,14 +112,18 @@ button {
     display: flex;
     flex-direction: column;
   }
+
   body {
     max-width: 640px;
   }
+
   #mainSection,
   #banner {
+    max-width: fit-content;
     display: flex;
     flex-direction: column;
   }
+
   button {
     max-width: fit-content;
   }
