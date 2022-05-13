@@ -21,14 +21,21 @@ p {
   text-align: center;
 }
 
-li {
+#scoreLi {
+  padding: 10px;
+  list-style-type: none;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+.answer {
   padding: 15px;
   list-style-type: none;
   font-size: 16px;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
-li:hover {
+.answer:hover {
   box-shadow: inset 180px 0 0 0 lavender;
   cursor: pointer;
 }
@@ -78,6 +85,11 @@ button {
   margin: 5px;
   color: var(--purple);
 }
+
+.notification {
+  text-align: center;
+}
+
 /* Media queries */
 /* max-width: 786px */
 @media screen and (max-width: 786px) {

@@ -6,7 +6,7 @@ var currentTime = document.getElementById("currentTimer");
 var timerInterval;
 let questionIndex = 0;
 var score = 0;
-var secondsLeft = 6;
+var secondsLeft = 60;
 var holdInterval = 0;
 var penalty = 5;
 
@@ -46,7 +46,7 @@ const questions = [
   },
 ];
 
-// event handler function to handle click events in question section
+// handle click events in question section
 const handleAnswerClick = (event) => {
   const { target } = event;
 
@@ -64,22 +64,21 @@ const handleAnswerClick = (event) => {
   if (target.tagName === "LI") {
     // remove current question
     removeQuestion();
-    // if the answer if correct
+    // if the answer is correct
     if (questions[questionIndex].answer === target.textContent) {
       // call the orrect answer funcation
       correctAnswer();
     } else {
-      // call the wrong answer function
+      // if it is wrong call the wrong answer function
       wrongAnswer();
     }
     if (questionIndex < questions.length - 1) {
-      // go to the next question
+      // then go to the next question
       questionIndex += 1;
 
-      // render next question
       renderQuestion();
     } else {
-      // if last question render form and highscores
+      // if last question render form
       renderForm();
     }
   }
@@ -89,6 +88,7 @@ const handleAnswerClick = (event) => {
 const renderForm = () => {
   const section = document.createElement("section");
 
+  // set the form
   const h2 = document.createElement("h2");
   h2.textContent = "Your Score: " + score + " /100";
 
@@ -179,21 +179,23 @@ const removeTimer = () => {
   document.getElementById("currentTimer").remove();
 };
 
+// remove form
 const removeForm = () => {
   document.querySelector("form").remove();
 };
 
+// when time is up user can restart the quiz
 const timeRunOut = () => {
   const restartSection = document.createElement("section");
   restartSection.setAttribute("class", "restart-page");
 
   const restartOption = document.createElement("p");
   restartOption.setAttribute("class", "restart-option");
-  restartOption.textContent = "Time's UP! You may restart the quiz";
+  restartOption.textContent = "Time's UP! You may restart the quiz!";
 
   const restartButton = document.createElement("button");
   restartButton.setAttribute("class", "restart-button");
-  restartButton.innerHTML = "restart";
+  restartButton.innerHTML = "Restart the quiz!";
 
   restartSection.append(restartOption);
   restartSection.append(restartButton);
@@ -202,6 +204,7 @@ const timeRunOut = () => {
   restartButton.addEventListener("click", restartQuiz);
 };
 
+// restart the quiz
 const restartQuiz = () => {
   window.location.reload();
 };
@@ -231,11 +234,7 @@ function setTimer() {
   }, 1000);
 }
 
-const setScore = () => {
-  const Scores = localStorage.setItem("highscore", score);
-};
-
-// TODO: store score in LS
+// store score in LS
 const saveScoreInLS = (yourInitial, score) => {
   const newScore = {
     yourInitial,
@@ -252,7 +251,6 @@ const saveScoreInLS = (yourInitial, score) => {
       return question2.score - question1.score;
     });
   } else {
-    // TODO: debug
     const highScore = [];
   }
   var highScores = JSON.parse(localStorage.getItem("highscore"));
@@ -273,8 +271,6 @@ const showScores = (event) => {
 };
 
 const startButtonClicks = () => {
-  console.log("start clicked");
-
   // timer appear
   setTimer();
 
