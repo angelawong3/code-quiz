@@ -242,7 +242,8 @@ const saveScoreInLS = (yourInitial, score) => {
     yourInitial,
     score,
   };
-  const highScore = localStorage.setItem("highscore", JSON.stringify(newScore));
+
+  const highScore = localStorage.setItem("highscore", JSON.stringify([]));
   if (highScore && highScore.length) {
     if (highScore.length >= 150) {
       highScore = [];
@@ -269,19 +270,13 @@ const showScores = (event) => {
 
     const scoreCard = document.createElement("h1");
     scoreCard.setAttribute("class", "score-card");
-    scoreCard.textContent = `${yourInitial}'s score: ${secondsLeft}`;
-
-    const notification = document.createElement("h4");
-    notification.setAttribute("class", "notification");
-    notification.textContent =
-      'You can view your score by clicking the link "Highscores"';
+    scoreCard.textContent = `${yourInitial}'s score: ${score}`;
 
     const finishAndRestartQuizButton = document.createElement("button");
     finishAndRestartQuizButton.setAttribute("class", "finish-quiz-button");
     finishAndRestartQuizButton.textContent = "Finish";
 
     scoreSection.append(scoreCard);
-    scoreSection.append(notification);
     scoreSection.append(finishAndRestartQuizButton);
     main.append(scoreSection);
 
