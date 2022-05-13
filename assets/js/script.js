@@ -3,9 +3,10 @@ var startQuiz = document.getElementById("startQuiz");
 var boxDiv = document.getElementById("boxDiv");
 var main = document.getElementById("mainSection");
 var currentTime = document.getElementById("currentTimer");
+var timerInterval;
 let questionIndex = 0;
 var score = 0;
-var secondsLeft = 61;
+var secondsLeft = 5;
 var holdInterval = 0;
 var penalty = 5;
 
@@ -121,7 +122,7 @@ const renderForm = () => {
   main.append(section);
 
   // add event listener for form submition
-  form.addEventListener("submit", handleFormSubmit);
+  button.addEventListener("submit", showScores);
 };
 
 // function to render highscores
@@ -180,27 +181,61 @@ const removeQuestion = () => {
   document.getElementById("question-container").remove();
 };
 
+const removeTimer = () => {
+  document.getElementById("currentTimer").remove();
+};
+
+const timeRunOut = () => {
+  const restartSection = document.createElement("section");
+  restartSection.setAttribute("class", "restart-page");
+
+  const restartOption = document.createElement("p");
+  restartOption.setAttribute("class", "restart-option");
+  restartOption.textContent =
+    "you ran out of time, Click restart code quiz to go back to home page";
+
+  const restartButton = document.createElement("button");
+  restartButton.setAttribute("class", "restart-button");
+  restartButton.innerHTML = "restart";
+
+  restartSection.append(restartOption);
+  restartSection.append(restartButton);
+  main.append(restartSection);
+  restartButton.addEventListener("click", finishOrRestartQuiz);
+};
+
+const finishOrRestartQuiz = () => {
+  window.location.reload();
+};
+
 // set timer
-function setTime() {
+function setTimer() {
   // sets interval in variable
-  var timerInterval = setInterval(function () {
-    secondsLeft--;
+  timerInterval = setInterval(function () {
     currentTime.textContent = "Time: " + secondsLeft;
 
-    if (secondsLeft === 0) {
+    if (secondsLeft <= 0) {
       // stops execution of action at set interval
       clearInterval(setInterval);
       // call function of create message
-      gameOver();
+      removeQuestion();
+      removeTimer();
+      timeRunOut();
+    }
+    secondsLeft--;
+    if (questionIndex > 4) {
+      clearInterval(timerInterval);
+      removeTimer();
+      renderForm();
     }
   }, 1000);
 }
 
 // Function to create time's up message
-const gameOver = () => {
-  main.textContent = "Time's up";
-  renderForm();
-  renderHighscores();
+const timeOut = () => {
+  // main.textContent = "Time's up";
+  // renderForm();
+  // renderHighscores();
 };
 
 // TODO: store score in LS
@@ -224,7 +259,7 @@ const setScore = () => {
 // TODO: form submittion with name and score
 // TODO: store initial and score in LS
 // TODO: get initial and score from LS
-const handleFormSubmit = (event) => {
+const showScores = (event) => {
   // get value from input
   // check if empty then render error alert with message and status
   // if not empty then create the score object
@@ -238,6 +273,28 @@ const handleFormSubmit = (event) => {
 
   const yourInitial = document.getElementById("yourInitial").value;
   if (yourInitial) {
+    removeForm();
+    const scoreSection = document.createElement("section");
+    scoreSection.setAttribute("class", "score-data");
+
+    const scoreCard = document.createElement("h1");
+    scoreCard.setAttribute("class", "score-card");
+    scoreCard.textContent = `${yourInitial}'s score: ${secondsLeft}`;
+
+    const notification = document.createElement("h4");
+    notification.setAttribute("class", "notification");
+    notification.textContent =
+      "you can see the high scores by clicking on the high score link on the top left of this page";
+
+    const finishAndRestartQuizButton = document.createElement("button");
+    finishAndRestartQuizButton.setAttribute("class", "finish-quiz-button");
+    finishAndRestartQuizButton.textContent = "Finish";
+
+    scoreSection.append(scoreCard);
+    scoreSection.append(notification);
+    scoreSection.append(finishAndRestartQuizButton);
+    main.append(scoreSection);
+
     const scoreResults = JSON.parse(localStorage.getItem("highscore"));
 
     const result = {
@@ -253,7 +310,7 @@ const startButtonClicks = () => {
   console.log("start clicked");
 
   // timer appear
-  setTime();
+  setTimer();
 
   // // initialise local storage
   // initialiseLocalStorage();
