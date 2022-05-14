@@ -58,7 +58,7 @@ button {
 }
 
 #scoreLi {
-  padding: 10px;
+  padding: 3px;
   list-style-type: none;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
@@ -96,6 +96,7 @@ button {
 
   #mainSection,
   #banner {
+    min-height: fit-content;
     max-width: fit-content;
     display: flex;
     flex-direction: column;
@@ -119,6 +120,7 @@ button {
 
   #mainSection,
   #banner {
+    min-height: fit-content;
     max-width: fit-content;
     display: flex;
     flex-direction: column;

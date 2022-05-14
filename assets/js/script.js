@@ -113,11 +113,8 @@ const renderForm = () => {
   button.textContent = "Submit your initial";
 
   buttonDiv.append(button);
-
   form.append(inputDiv, buttonDiv);
-
   section.append(h2, form);
-
   main.append(section);
 
   // add event listener for form submition
@@ -240,20 +237,18 @@ const saveScoreInLS = (yourInitial, score) => {
     yourInitial,
     score,
   };
-  const highScore = localStorage.setItem("highscore", JSON.stringify(newScore));
-  if (highScore && highScore.length) {
-    if (highScore.length >= 150) {
-      highScore = [];
-      alert("The scores is being reset!");
-    }
-    highScore.push(newScore);
-    highScore.sort((question1, question2) => {
-      return question2.score - question1.score;
-    });
-  } else {
-    const highScore = [];
+  const highScores = JSON.parse(localStorage.getItem("highscore"));
+  highScores.push(newScore);
+  localStorage.setItem("highscore", JSON.stringify(highScores));
+};
+
+const initLS = function () {
+  const highScoreLS = JSON.parse(localStorage.getItem("highscore"));
+
+  //if not exist, set empty string
+  if (!highScoreLS) {
+    localStorage.setItem("highscore", JSON.stringify([]));
   }
-  var highScores = JSON.parse(localStorage.getItem("highscore"));
 };
 
 const showScores = (event) => {
@@ -261,8 +256,8 @@ const showScores = (event) => {
 
   const yourInitial = document.getElementById("yourInitial").value;
   if (yourInitial) {
-    removeTimer();
     removeForm();
+    removeTimer();
     saveScoreInLS(yourInitial, score);
   }
 
@@ -279,6 +274,9 @@ const startButtonClicks = () => {
 
   // render questions
   renderQuestion();
+
+  // initial LS
+  initLS();
 };
 
 // add start button click event listener

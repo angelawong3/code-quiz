@@ -1,15 +1,17 @@
-var highScore = document.getElementById("highScore");
-var clear = document.getElementById("clear");
-var goBack = document.getElementById("goBack");
-
-console.log(JSON.parse(localStorage.getItem("highscore")));
+const highScore = document.getElementById("highScore");
+const clear = document.getElementById("clear");
+const goBack = document.getElementById("goBack");
 
 const scoreResults = JSON.parse(localStorage.getItem("highscore"));
 if (scoreResults !== null) {
-  var createLi = document.createElement("li");
-  createLi.setAttribute("id", "scoreLi");
-  createLi.textContent = scoreResults.yourInitial + " " + scoreResults.score;
-  highScore.appendChild(createLi);
+  scoreResults.sort((a, b) => b.score - a.score).slice(0, 5);
+  for (let i = 0; i < scoreResults.length; i++) {
+    var createLi = document.createElement("li");
+    createLi.setAttribute("id", "scoreLi");
+    createLi.textContent =
+      scoreResults[i].yourInitial + ": " + scoreResults[i].score;
+    highScore.appendChild(createLi);
+  }
 }
 
 // add event listener to clear scores
