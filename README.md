@@ -1,6 +1,11 @@
-# Code-Quiz
+# Code Quiz
 
 ## This is the repository for the code quiz
+
+### Overview
+
+A timed quiz on JavaScript fundamentals that stores high scores.
+Have fun!
 
 ### Steps:
 
@@ -19,10 +24,24 @@
 5. User can check the score on highscore page
    ![check-score](./assets/images/5-highscore-page.png)
 
+### Technologies used
+
+1. HTML
+2. CSS
+3. JavaScript
+
 ### Link:
 
 Click [https://angelawong3.github.io/code-quiz/](https://angelawong3.github.io/code-quiz/) to go to the page.
 
+### License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+### Contact Me
+
+Please contact me at angelawong3@yahoo.com
+
 ---
 
-© Angela Wong
+© 2022 Angela Wong
